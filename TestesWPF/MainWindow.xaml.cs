@@ -25,12 +25,14 @@ namespace TestesWPF
             InitializeComponent();
         }
 
-        private void btnSim(object sender, RoutedEventArgs e)
+        //Botão inicio
+        private void btnInicial(object sender, RoutedEventArgs e)
         {
             dynamic x = new { id="001", sim = "Novo plano!", nao = "Ok, certeza que quer sair?", resultado = "sim" };
             ProximoPasso(x, checkSimBase, checkNaoBase, quadroBase);
         }
 
+        //Botão Continuar Generico
         private void btnContinuar(object sender, RoutedEventArgs e)
         {
             dynamic proximoPasso = ((Button)sender).Tag;
@@ -38,6 +40,7 @@ namespace TestesWPF
             ProximoPasso(proximoPasso.x, proximoPasso.checkSimPar, proximoPasso.checkNaoPar, proximoPasso.quadro);
         }
         
+        //Faz verificações e Chama Monta Painel
         private void ProximoPasso(dynamic resposta, CheckBox checSim, CheckBox checNao, StackPanel QuadroLinha)
         {
             if (checSim.IsChecked == true && checNao.IsChecked == true)
@@ -60,10 +63,11 @@ namespace TestesWPF
             }
         }
 
+        //Monta Painel/Linha
         private void montaStackPanel(string resposta, string id)
         {
-            StackPanel QuadroGeral = new StackPanel();
-            StackPanel SubQuadro = new StackPanel { Orientation=Orientation.Horizontal };
+            StackPanel QuadroGeral = new StackPanel { HorizontalAlignment = HorizontalAlignment.Center};
+            StackPanel SubQuadro = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Center };
 
             Label texto = new Label { Content = resposta };
 

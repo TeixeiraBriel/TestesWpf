@@ -15,7 +15,7 @@
                     <CheckBox Name="checkSimBase" Content="Sim" />
                     <CheckBox Name="checkNaoBase" Content="Não" />
                 </StackPanel>
-                <Button Content="Continuar" Click="btnSim"/>
+                <Button Content="Continuar" Click="btnInicial"/>
                 <!---->    
             </StackPanel>
         </StackPanel>
