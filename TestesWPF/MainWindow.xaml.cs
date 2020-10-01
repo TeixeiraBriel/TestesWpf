@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace TestesWPF
 {
@@ -23,6 +24,23 @@ namespace TestesWPF
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtBuscar.Text == "1")
+            {
+                lblResultado.Content = "Urso Polar Chique";
+            }
+            else
+            {
+                lblResultado.Content = "";
+            }
+        }
+
+        private void carregaJson()
+        {
+            
         }
     }
 }
