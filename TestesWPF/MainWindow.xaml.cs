@@ -40,7 +40,17 @@ namespace TestesWPF
             }
             else
             {
-                AddJson();
+            }
+        }
+
+        private void NovoId(object sender, RoutedEventArgs e)
+        {
+            CriarJson();
+            if (!string.IsNullOrEmpty(txtNovo.Text))
+            {
+                string Texto = txtNovo.Text;
+                AddJson(Texto);
+                txtNovo.Text = null;
             }
         }
 
@@ -53,19 +63,15 @@ namespace TestesWPF
                                     .ToDictionary(i => i.chave, i => i.valor);
         }
 
-        private void AddJson()
+        private void AddJson(string Texto)
         {
             bool duplicidadeId = false;
             DadosTextos novo = new DadosTextos();
             novo.Items = new List<Textos>();
 
-
-            //FEITO A MÂO
-            Textos x = new Textos();
-            x.id = "9";
-            x.texto = "texto novo";
-            //FEITO A MÂO
-
+            Textos NovoTexto = new Textos();
+            NovoTexto.texto = Texto;
+            int id = 1;
 
             var file = @"Dados\TesteJson.json";
             var data = JsonConvert.DeserializeObject<DadosTextos>(File.ReadAllText(file, Encoding.UTF8));
@@ -73,20 +79,16 @@ namespace TestesWPF
             foreach (var dado in data.Items)
             {
                 novo.Items.Add(dado);
-                if (dado.id == x.id)
+                if (int.Parse(dado.id) == id)
                 {
-                    duplicidadeId = true;
+                    id++;
                 }
             }
 
-            if (duplicidadeId)
-            {
-                MessageBox.Show("Id Duplicado");
-            }
-            else
-            {
-                novo.Items.Add(x);
-            }
+            NovoTexto.id = id.ToString();
+            novo.Items.Add(NovoTexto);
+
+            MessageBox.Show("Novo Texto Criado Com Sucesso!");
 
             string output = JsonConvert.SerializeObject(novo);
 

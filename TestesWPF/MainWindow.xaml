@@ -7,13 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel HorizontalAlignment="Center">
-            <Label Content="Digite um Id e vamos buscar no Json a informação equivalente."/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox Name="txtBuscar" Width="200"/>
-                <Button Margin="5,0,0,0" Width="100" Content="Buscar" Click="Button_Click"/>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Center">
+                <Label Content="Digite um Id e vamos buscar no Json a informação equivalente."/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Name="txtBuscar" Width="200"/>
+                    <Button Margin="5,0,0,0" Width="100" Content="Buscar" Click="Button_Click"/>
+                </StackPanel>
+                <Label Content="" Name="lblResultado" HorizontalAlignment="Center"/>
             </StackPanel>
-            <Label Content="" Name="lblResultado" HorizontalAlignment="Center"/>
+            <StackPanel>
+                <Label Content="Criar Nova Correspondencia."/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Name="txtNovo" Width="200"/>
+                    <Button Margin="5,0,0,0" Width="100" Content="Criar" Click="NovoId"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
