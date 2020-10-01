@@ -8,6 +8,6 @@ namespace TestesWPF
 {
     public class DadosTextos
     {
-        public Textos[] Items { get; set; }
+        public List<Textos> Items { get; set; }
     }
 }

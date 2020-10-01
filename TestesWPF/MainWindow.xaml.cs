@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace TestesWPF
 {
@@ -37,6 +38,10 @@ namespace TestesWPF
                 var x = _Dados[char.Parse(txtBuscar.Text)];
                 lblResultado.Content = x;
             }
+            else
+            {
+                AddJson();
+            }
         }
 
         private void CriarJson()
@@ -46,6 +51,52 @@ namespace TestesWPF
 
             _Dados = data.Items.SelectMany(i => i.id, (i, chave) => new { chave, valor = i.texto })
                                     .ToDictionary(i => i.chave, i => i.valor);
+        }
+
+        private void AddJson()
+        {
+            bool duplicidadeId = false;
+            DadosTextos novo = new DadosTextos();
+            novo.Items = new List<Textos>();
+
+
+            //FEITO A MÂO
+            Textos x = new Textos();
+            x.id = "9";
+            x.texto = "texto novo";
+            //FEITO A MÂO
+
+
+            var file = @"Dados\TesteJson.json";
+            var data = JsonConvert.DeserializeObject<DadosTextos>(File.ReadAllText(file, Encoding.UTF8));
+
+            foreach (var dado in data.Items)
+            {
+                novo.Items.Add(dado);
+                if (dado.id == x.id)
+                {
+                    duplicidadeId = true;
+                }
+            }
+
+            if (duplicidadeId)
+            {
+                MessageBox.Show("Id Duplicado");
+            }
+            else
+            {
+                novo.Items.Add(x);
+            }
+
+            string output = JsonConvert.SerializeObject(novo);
+
+            File.WriteAllText(@"Dados\TesteJson.json", output.ToString());
+
+            using (StreamWriter file2 = File.CreateText(@"Dados\TesteJson.json"))
+            using (JsonTextWriter writer = new JsonTextWriter(file2))
+            {
+                JObject.Parse(output).WriteTo(writer);
+            }
         }
     }
 }
