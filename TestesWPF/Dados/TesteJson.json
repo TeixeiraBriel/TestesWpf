@@ -1,11 +1,16 @@
 {
-  "1": {
-    "texto": "abc"
-  },
-  "2": {
-    "texto": "cba"
-  },
-  "3": {
-    "texto": "csba"
-  }
+  "Items": [
+    {
+      "id": "1",
+      "texto": "Consulta de debitos"
+    },
+    {
+      "id": "2",
+      "texto": "Débito Automático"
+    },
+    {
+      "id": "3",
+      "texto": "Cadastro/Cancel. Fatura por email"
+    }
+  ]
 }
