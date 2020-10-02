@@ -38,7 +38,7 @@ namespace TestesWPF
             {
                 if (_Dados.Count < int.Parse(txtBuscar.Text) || int.Parse(txtBuscar.Text) == 0)
                 {
-                    MessageBox.Show("Não Existe Resposta para essa Chave. A ultima chave é de valor " + _Dados.Count + "." , "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Não Existe Resposta para essa Chave. A ultima chave é de valor " + _Dados.Count + ".", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -50,7 +50,7 @@ namespace TestesWPF
             }
             else
             {
-                    MessageBox.Show("Não há nada digitado, favor digite uma chave.", "Atenção!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Não há nada digitado, favor digite uma chave.", "Atenção!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -111,10 +111,8 @@ namespace TestesWPF
                     idDuplicidade = numReg;
                     duplicidadeTexto = true;
                 }
-                if (int.Parse(dado.id[0]) == n || dado.id.Length > 1/*int.Parse(id[0])*/)
-                {
-                    n = n + 1 + (dado.id.Length - 1);
-                }
+
+                n = n + 1 + (dado.id.Length - 1);
                 numReg++;
             }
 
