@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,18 +36,21 @@ namespace TestesWPF
             CriarJson();
             if (!string.IsNullOrEmpty(txtBuscar.Text))
             {
-                if (_Dados.Count < int.Parse(txtBuscar.Text))
+                if (_Dados.Count < int.Parse(txtBuscar.Text) || int.Parse(txtBuscar.Text) == 0)
                 {
-                    MessageBox.Show("Não Existe Resposta para essa Chave.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Não Existe Resposta para essa Chave. A ultima chave é de valor " + _Dados.Count + "." , "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    var x = _Dados[txtBuscar.Text];
+                    int chave = int.Parse(txtBuscar.Text); //Tira o Zero a esquerda
+                    var x = _Dados[chave.ToString()];
                     lblResultado.Content = x;
                 }
+                txtNovo.Text = null;
             }
             else
             {
+                    MessageBox.Show("Não há nada digitado, favor digite uma chave.", "Atenção!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -59,6 +63,10 @@ namespace TestesWPF
                 AddJson(Texto);
                 txtNovo.Text = null;
                 MessageBox.Show("Novo Texto Criado Com Sucesso!", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Não há nada digitado, favor digite um texto.", "Atenção!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -132,6 +140,12 @@ namespace TestesWPF
             {
                 JObject.Parse(output).WriteTo(writer);
             }
+        }
+        //verifica se é numero no campo txtbuscar
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

@@ -11,7 +11,7 @@
             <StackPanel HorizontalAlignment="Center">
                 <Label Content="Digite um Id e vamos buscar no Json a informação equivalente."/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBox Name="txtBuscar" Width="200"/>
+                    <TextBox Name="txtBuscar" PreviewTextInput="NumberValidationTextBox" Width="200" MaxLength="8"/>
                     <Button Margin="5,0,0,0" Width="100" Content="Buscar" Click="Button_Click"/>
                 </StackPanel>
                 <Label Content="" Name="lblResultado" HorizontalAlignment="Center"/>
