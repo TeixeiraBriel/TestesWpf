@@ -12,7 +12,7 @@ namespace TestesWPF
 {
     public class Textos
     {
-        public string id { get; set; }
+        public string[] id { get; set; }
 
         public string texto { get; set; }
         

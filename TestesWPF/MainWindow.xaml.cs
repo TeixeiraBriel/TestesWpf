@@ -23,7 +23,7 @@ namespace TestesWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Dictionary<char, string> _Dados;
+        private Dictionary<string, string> _Dados;
 
         public MainWindow()
         {
@@ -35,8 +35,15 @@ namespace TestesWPF
             CriarJson();
             if (!string.IsNullOrEmpty(txtBuscar.Text))
             {
-                var x = _Dados[char.Parse(txtBuscar.Text)];
-                lblResultado.Content = x;
+                if (_Dados.Count < int.Parse(txtBuscar.Text))
+                {
+                    MessageBox.Show("Não Existe Resposta para essa Chave.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    var x = _Dados[txtBuscar.Text];
+                    lblResultado.Content = x;
+                }
             }
             else
             {
@@ -51,6 +58,7 @@ namespace TestesWPF
                 string Texto = txtNovo.Text;
                 AddJson(Texto);
                 txtNovo.Text = null;
+                MessageBox.Show("Novo Texto Criado Com Sucesso!", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -65,13 +73,17 @@ namespace TestesWPF
 
         private void AddJson(string Texto)
         {
-            bool duplicidadeId = false;
+            bool duplicidadeTexto = false;
             DadosTextos novo = new DadosTextos();
             novo.Items = new List<Textos>();
 
             Textos NovoTexto = new Textos();
             NovoTexto.texto = Texto;
-            int id = 1;
+            int numReg = 0;
+            int n = 1;
+            string[] newDado = new string[0];
+            int tmn = 0;
+            int idDuplicidade = 0;
 
             var file = @"Dados\TesteJson.json";
             var data = JsonConvert.DeserializeObject<DadosTextos>(File.ReadAllText(file, Encoding.UTF8));
@@ -79,16 +91,37 @@ namespace TestesWPF
             foreach (var dado in data.Items)
             {
                 novo.Items.Add(dado);
-                if (int.Parse(dado.id) == id)
+                if (dado.texto == Texto)
                 {
-                    id++;
+                    tmn = dado.id.Length;
+                    newDado = new string[tmn + 1];
+                    for (int i = 0; i < tmn; i++)
+                    {
+                        newDado[i] = dado.id[i];
+                    }
+
+                    idDuplicidade = numReg;
+                    duplicidadeTexto = true;
                 }
+                if (int.Parse(dado.id[0]) == n || dado.id.Length > 1/*int.Parse(id[0])*/)
+                {
+                    n = n + 1 + (dado.id.Length - 1);
+                }
+                numReg++;
             }
 
-            NovoTexto.id = id.ToString();
-            novo.Items.Add(NovoTexto);
+            if (duplicidadeTexto)
+            {
+                newDado[tmn] = n.ToString();
+                data.Items[idDuplicidade].id = newDado;
+            }
+            else
+            {
+                NovoTexto.id = new string[] { n.ToString() };
+                novo.Items.Add(NovoTexto);
+            }
 
-            MessageBox.Show("Novo Texto Criado Com Sucesso!");
+
 
             string output = JsonConvert.SerializeObject(novo);
 

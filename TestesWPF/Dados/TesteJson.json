@@ -1,15 +1,15 @@
 {
   "Items": [
     {
-      "id": "1",
+      "id": [ "1"],
       "texto": "Consulta de debitos"
     },
     {
-      "id": "2",
+      "id": [ "2" ],
       "texto": "Débito Automático"
     },
     {
-      "id": "3",
+      "id": [ "3" ],
       "texto": "Cadastro/Cancel. Fatura por email"
     }
   ]
